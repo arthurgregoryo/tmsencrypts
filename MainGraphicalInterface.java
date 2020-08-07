@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -66,7 +67,8 @@ public class MainGraphicalInterface {
 		JButton btnDecrypt = new JButton("Decrypt");
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TMSencryptS.decrypt(inputField.getText(), outputField.getText(), Long.parseLong(keyField.getText()));
+				if(TMSencryptS.decrypt(inputField.getText(), outputField.getText(), Long.parseLong(keyField.getText())))
+					JOptionPane.showMessageDialog(null, "Your content has been successfully decrypted.", "Successfully decrypted!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnDecrypt.setBounds(321, 226, 117, 25);
@@ -75,7 +77,11 @@ public class MainGraphicalInterface {
 		JButton btnEncrypt = new JButton("Encrypt");
 		btnEncrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TMSencryptS.encrypt(inputField.getText(), outputField.getText(), Long.parseLong(keyField.getText()));
+				if(TMSToolS.validKeyGraphical(Long.parseLong(keyField.getText())))	{
+					if(TMSencryptS.encrypt(inputField.getText(), outputField.getText(), Long.parseLong(keyField.getText())))
+						JOptionPane.showMessageDialog(null, "Your content has been successfully encrypted.", "Successfully encrypted!", JOptionPane.INFORMATION_MESSAGE);
+				}
+
 			}
 		});
 		btnEncrypt.setBounds(198, 226, 117, 25);
